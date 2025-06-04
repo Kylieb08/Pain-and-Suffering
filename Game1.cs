@@ -3,7 +3,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 
-namespace Skeleton_Game
+namespace Pain_and_Suffering
 {
     public class Game1 : Game
     {
