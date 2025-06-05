@@ -56,7 +56,7 @@ namespace Pain_and_Suffering
             barriers.Add(new Rectangle(548, 0, 65, 105));
             barriers.Add(new Rectangle(548, 0, 222, 35));
             barriers.Add(new Rectangle(770, 0, 30, 61));
-            barriers.Add(new Rectangle(525, 315, 160, 5)); // barrier in front of door that gets unlocked
+         //   barriers.Add(new Rectangle(525, 315, 160, 5)); // barrier in front of door that gets unlocked
             barriers.Add(new Rectangle(701, 235, 99, 5));
             barriers.Add(new Rectangle(475, 92, 25, 14));
             barriers.Add(new Rectangle(673, 173, 87, 37));
@@ -72,6 +72,20 @@ namespace Pain_and_Suffering
             barriers.Add(new Rectangle(25, 177, 47, 5));
             barriers.Add(new Rectangle(107, 177, 91, 5));
             barriers.Add(new Rectangle(184, 182, 15, 47));
+
+            //barriers for second screen once it's made. Will temporarily be added to og barrier list
+            barriers.Add(new Rectangle(122, 430, 58, 63));
+            barriers.Add(new Rectangle(180, 471, 148, 29));
+            barriers.Add(new Rectangle(172, 375, 76, 6));
+            barriers.Add(new Rectangle(0, 392, 122, 43));
+            barriers.Add(new Rectangle(0, 307, 82, 19));
+            barriers.Add(new Rectangle(83, 270, 118, 36));
+            barriers.Add(new Rectangle(155, 305, 17, 75));
+            barriers.Add(new Rectangle(270, 273, 108, 51));
+            barriers.Add(new Rectangle(332, 328, 15, 47));
+            barriers.Add(new Rectangle(284, 375, 172, 6));
+            barriers.Add(new Rectangle(488, 376, 35, 7));
+            barriers.Add(new Rectangle(509, 316, 14, 66));
 
             //Processing sprite sheet
             rows = 4;
