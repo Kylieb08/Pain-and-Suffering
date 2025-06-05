@@ -57,9 +57,10 @@ namespace Pain_and_Suffering
             barriers.Add(new Rectangle(548, 0, 222, 35));
             barriers.Add(new Rectangle(770, 0, 30, 61));
          //   barriers.Add(new Rectangle(525, 315, 160, 5)); // barrier in front of door that gets unlocked
-            barriers.Add(new Rectangle(701, 235, 99, 5));
+            barriers.Add(new Rectangle(701, 235, 20, 5));
+            barriers.Add(new Rectangle(753, 235, 47, 5));
             barriers.Add(new Rectangle(475, 92, 25, 14));
-            barriers.Add(new Rectangle(673, 173, 87, 37));
+            barriers.Add(new Rectangle(673, 173, 87, 12));
             barriers.Add(new Rectangle(762, 130, 38, 97));
             barriers.Add(new Rectangle(509, 256, 15, 60));
             barriers.Add(new Rectangle(378, 0, 170, 25));
@@ -86,6 +87,11 @@ namespace Pain_and_Suffering
             barriers.Add(new Rectangle(284, 375, 172, 6));
             barriers.Add(new Rectangle(488, 376, 35, 7));
             barriers.Add(new Rectangle(509, 316, 14, 66));
+            barriers.Add(new Rectangle(448, 472, 315, 28));
+            barriers.Add(new Rectangle(686, 314, 14, 68));
+            barriers.Add(new Rectangle(585, 431, 166, 23));
+            barriers.Add(new Rectangle(762, 410, 38, 23));
+            barriers.Add(new Rectangle(762, 331, 38, 12));
 
             //Processing sprite sheet
             rows = 4;
