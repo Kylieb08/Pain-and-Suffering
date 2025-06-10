@@ -114,7 +114,7 @@ namespace Pain_and_Suffering
             frame = 0;
 
             //Player
-            playerLocation = new Vector2(79, 41);
+            playerLocation = new Vector2(228, 280);
             playerCollisionRect = new Rectangle(79, 41, 20, 48);
             playerDrawRect = new Rectangle(79, 41, 50, 65);
             speed = 1.5f;
