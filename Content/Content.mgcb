@@ -25,6 +25,18 @@
 /processorParam:TextureFormat=Color
 /build:dungeon 1.png
 
+#begin dungeon tunnel.jpg
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:dungeon tunnel.jpg
+
 #begin rectangle.png
 /importer:TextureImporter
 /processor:TextureProcessor

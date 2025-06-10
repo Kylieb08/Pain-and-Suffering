@@ -20,14 +20,14 @@ namespace Pain_and_Suffering
         private GraphicsDeviceManager _graphics;
         private SpriteBatch _spriteBatch;
 
-        Texture2D characterSpriteSheet, rectangleTexture, dungeonTexture;
+        Texture2D characterSpriteSheet, rectangleTexture, dungeonTexture, tunnelTexture;
         List<Rectangle> barriers, barriers2;
 
         KeyboardState keyboardState;
 
         MouseState mouseState;
 
-        Rectangle window, playerCollisionRect, playerDrawRect, leverRect, buttonRect;
+        Rectangle window, playerCollisionRect, playerDrawRect, leverRect, buttonRect, secondButtonRect, lockedDoor;
 
         int rows, columns, //number of rows/columns in the spritesheet
             frame, //frame number (column) in the sequence to draw
@@ -39,6 +39,10 @@ namespace Pain_and_Suffering
         float speed, time, frameSpeed;
 
         Vector2 playerLocation, playerDirection;
+
+        Screen screen;
+
+        bool leverFlipped, buttonPressed, secondButtonPressed;
 
 
         public Game1()
@@ -52,6 +56,7 @@ namespace Pain_and_Suffering
         {
             // Sizes window
             window = new Rectangle(0, 0, 800, 500);
+            screen = Screen.Intro;
             _graphics.PreferredBackBufferWidth = 800;
             _graphics.PreferredBackBufferHeight = 500;
             _graphics.ApplyChanges();
@@ -66,7 +71,7 @@ namespace Pain_and_Suffering
             barriers.Add(new Rectangle(548, 0, 65, 105));
             barriers.Add(new Rectangle(548, 0, 222, 35));
             barriers.Add(new Rectangle(770, 0, 30, 61));
-            barriers.Add(new Rectangle(525, 315, 160, 5)); // barrier in front of door that gets unlocked
+            // barrier in front of door that gets unlocked
             barriers.Add(new Rectangle(701, 235, 100, 5));
 
             barriers.Add(new Rectangle(475, 92, 25, 14));
@@ -107,6 +112,8 @@ namespace Pain_and_Suffering
             barriers2.Add(new Rectangle(525, 315, 77, 5));
             barriers2.Add(new Rectangle(637, 315, 60, 5));
 
+            lockedDoor = new Rectangle(525, 315, 160, 5);
+
             //Processing sprite sheet
             rows = 4;
             columns = 9;
@@ -131,6 +138,7 @@ namespace Pain_and_Suffering
             //Things to interact with
             leverRect = new Rectangle(769, 387, 13, 5);
             buttonRect = new Rectangle(34, 337, 23, 18);
+            secondButtonRect = new Rectangle(300, 98, 22, 16);
 
             UpdateRects();
 
@@ -149,6 +157,7 @@ namespace Pain_and_Suffering
             characterSpriteSheet = Content.Load<Texture2D>("skeleton_spritesheet");
             rectangleTexture = Content.Load<Texture2D>("rectangle");
             dungeonTexture = Content.Load<Texture2D>("dungeon 1");
+            tunnelTexture = Content.Load<Texture2D>("dungeon tunnel");
         }
 
         protected override void Update(GameTime gameTime)
@@ -166,39 +175,125 @@ namespace Pain_and_Suffering
 
             time += (float)gameTime.ElapsedGameTime.TotalSeconds;
 
-            if (time > frameSpeed && playerDirection != Vector2.Zero)
+            if (screen == Screen.Intro)
             {
-                time = 0f;
-                frame = (frame + 1) % frames;  // ensures frame is a value 0-8
+                if (mouseState.LeftButton == ButtonState.Pressed)
+                    screen = Screen.Dungeon1;
             }
 
-            SetPlayerDirection();
-            playerLocation += playerDirection * speed;
-            UpdateRects();
-
-            //Collision detection with window
-            if (!window.Contains(playerCollisionRect))
+            else if (screen == Screen.Dungeon1)
             {
-                playerLocation -= playerDirection * speed;
+                leverFlipped = false;
+                buttonPressed = false;
+
+                if (time > frameSpeed && playerDirection != Vector2.Zero)
+                {
+                    time = 0f;
+                    frame = (frame + 1) % frames;  // ensures frame is a value 0-8
+                }
+
+                SetPlayerDirection();
+                playerLocation += playerDirection * speed;
                 UpdateRects();
+
+                //Collision detection with window
+                if (!window.Contains(playerCollisionRect))
+                {
+                    playerLocation -= playerDirection * speed;
+                    UpdateRects();
+                }
+
+                //Collision detection with barriers
+                foreach (Rectangle barrier in barriers)
+                    if (barrier.Intersects(playerCollisionRect))
+                    {
+                        playerLocation -= playerDirection * speed;
+                        UpdateRects();
+                    }
+
+                foreach (Rectangle barrier2 in barriers2)
+                    if (barrier2.Intersects(playerCollisionRect))
+                    {
+                        playerLocation -= playerDirection * speed;
+                        UpdateRects();
+                    }
+
+                if (lockedDoor.Intersects(playerCollisionRect))
+                {
+                    playerLocation -= playerDirection * speed;
+                    UpdateRects();
+                }
+
+                //Interactions with buttons etc.
+                if (leverRect.Intersects(playerCollisionRect))
+                {
+                    if (keyboardState.IsKeyDown(Keys.E))
+                        leverFlipped = true;
+                }
+
+                if (buttonRect.Intersects(playerCollisionRect))
+                {
+                    if (keyboardState.IsKeyDown((Keys)Keys.E))
+                        buttonPressed = true;
+                }
+
+                base.Update(gameTime);
+
+                if (buttonPressed == true && leverFlipped == true)
+                    screen = Screen.Dungeon2;
             }
 
-            //Collision detection with barriers
-            foreach (Rectangle barrier in barriers)
-                if (barrier.Intersects(playerCollisionRect))
+            else if (screen == Screen.Dungeon2)
+            {
+                if (time > frameSpeed && playerDirection != Vector2.Zero)
+                {
+                    time = 0f;
+                    frame = (frame + 1) % frames;  // ensures frame is a value 0-8
+                }
+
+                SetPlayerDirection();
+                playerLocation += playerDirection * speed;
+                UpdateRects();
+
+                //Collision detection with window
+                if (!window.Contains(playerCollisionRect))
                 {
                     playerLocation -= playerDirection * speed;
                     UpdateRects();
                 }
 
-            foreach (Rectangle barrier2 in barriers2)
-                if (barrier2.Intersects(playerCollisionRect))
+                //Collision detection with barriers
+                foreach (Rectangle barrier in barriers)
+                    if (barrier.Intersects(playerCollisionRect))
+                    {
+                        playerLocation -= playerDirection * speed;
+                        UpdateRects();
+                    }
+
+                foreach (Rectangle barrier2 in barriers2)
+                    if (barrier2.Intersects(playerCollisionRect))
+                    {
+                        playerLocation -= playerDirection * speed;
+                        UpdateRects();
+                    }
+
+                if (lockedDoor.Intersects(playerCollisionRect))
                 {
                     playerLocation -= playerDirection * speed;
                     UpdateRects();
                 }
 
-            base.Update(gameTime);
+                //Interactions with buttons etc.
+                if (secondButtonRect.Intersects(playerCollisionRect))
+                {
+                    if (keyboardState.IsKeyDown((Keys)Keys.E))
+                        secondButtonPressed = true;
+                }
+
+                base.Update(gameTime);
+            }
+
+
         }
 
         protected override void Draw(GameTime gameTime)
@@ -209,18 +304,31 @@ namespace Pain_and_Suffering
 
             _spriteBatch.Begin();
 
-            _spriteBatch.Draw(dungeonTexture, window, Color.White);
+            if (screen == Screen.Intro)
+            {
+                _spriteBatch.Draw(tunnelTexture, window, Color.White);
+            }
 
-            //_spriteBatch.Draw(rectangleTexture, playerCollisionRect, Color.Black * 0.3f);
-            // ^ draws hitbox
-            _spriteBatch.Draw(characterSpriteSheet, playerDrawRect,
-                new Rectangle(frame * width, directionRow * height, width, height), Color.White);
+            else if (screen == Screen.Dungeon1)
+            {
+                _spriteBatch.Draw(dungeonTexture, window, Color.White);
 
-            foreach (Rectangle barrier in barriers)
-                _spriteBatch.Draw(rectangleTexture, barrier, Color.Black);
+                //_spriteBatch.Draw(rectangleTexture, playerCollisionRect, Color.Black * 0.3f);
+                // ^ draws hitbox
 
-            foreach (Rectangle barrier2 in barriers2)
-                _spriteBatch.Draw(rectangleTexture, barrier2, Color.White);
+                _spriteBatch.Draw(characterSpriteSheet, playerDrawRect,
+                    new Rectangle(frame * width, directionRow * height, width, height), Color.White);
+
+                //drawing barriers - will be commented out in final version
+                _spriteBatch.Draw(rectangleTexture, lockedDoor, Color.Green);
+
+                foreach (Rectangle barrier in barriers)
+                    _spriteBatch.Draw(rectangleTexture, barrier, Color.Black);
+
+                foreach (Rectangle barrier2 in barriers2)
+                    _spriteBatch.Draw(rectangleTexture, barrier2, Color.White);
+            }
+            
 
             _spriteBatch.End();
 
