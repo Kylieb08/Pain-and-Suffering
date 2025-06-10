@@ -5,6 +5,15 @@ using Microsoft.Xna.Framework.Input;
 
 namespace Pain_and_Suffering
 {
+
+    enum Screen
+    {
+        Intro,
+        Dungeon1,
+        Dungeon2,
+        Dungeon3,
+        End
+    }
     public class Game1 : Game
     {
         private GraphicsDeviceManager _graphics;
@@ -56,8 +65,7 @@ namespace Pain_and_Suffering
             barriers.Add(new Rectangle(548, 0, 65, 105));
             barriers.Add(new Rectangle(548, 0, 222, 35));
             barriers.Add(new Rectangle(770, 0, 30, 61));
-            //barriers.Add(new Rectangle(525, 315, 160, 5)); // barrier in front of door that gets unlocked
-           
+            barriers.Add(new Rectangle(525, 315, 160, 5)); // barrier in front of door that gets unlocked
             barriers.Add(new Rectangle(701, 235, 100, 5));
 
             barriers.Add(new Rectangle(475, 92, 25, 14));
@@ -75,7 +83,6 @@ namespace Pain_and_Suffering
             barriers.Add(new Rectangle(107, 177, 91, 5));
             barriers.Add(new Rectangle(184, 182, 15, 47));
 
-            //barriers for second screen once it's made. Will temporarily be added to og barrier list
             barriers.Add(new Rectangle(122, 430, 58, 63));
             barriers.Add(new Rectangle(180, 471, 148, 29));
             barriers.Add(new Rectangle(172, 375, 76, 6));
@@ -174,6 +181,7 @@ namespace Pain_and_Suffering
                 UpdateRects();
             }
 
+            //Collision detection with barriers
             foreach (Rectangle barrier in barriers)
                 if (barrier.Intersects(playerCollisionRect))
                 {
