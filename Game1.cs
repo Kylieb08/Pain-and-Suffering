@@ -229,13 +229,19 @@ namespace Pain_and_Suffering
                 if (leverRect.Intersects(playerCollisionRect))
                 {
                     if (keyboardState.IsKeyDown(Keys.E))
+                    {
                         leverFlipped = true;
+                    }
+                        
                 }
 
                 if (buttonRect.Intersects(playerCollisionRect))
                 {
                     if (keyboardState.IsKeyDown((Keys)Keys.E))
+                    {
                         buttonPressed = true;
+                    }
+                        
                 }
 
                 base.Update(gameTime);
