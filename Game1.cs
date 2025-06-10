@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Threading;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
@@ -20,7 +21,7 @@ namespace Pain_and_Suffering
         private SpriteBatch _spriteBatch;
 
         Texture2D characterSpriteSheet, rectangleTexture, dungeonTexture;
-        List<Rectangle> barriers;
+        List<Rectangle> barriers, barriers2;
 
         KeyboardState keyboardState;
 
@@ -101,9 +102,10 @@ namespace Pain_and_Suffering
             barriers.Add(new Rectangle(762, 410, 38, 23));
             barriers.Add(new Rectangle(762, 331, 38, 12));
 
+            barriers2 = new List<Rectangle>();
             //Barriers after the door is unlocked, will be on second screen but not third
-            barriers.Add(new Rectangle(525, 315, 77, 5));
-            barriers.Add(new Rectangle(637, 315, 60, 5));
+            barriers2.Add(new Rectangle(525, 315, 77, 5));
+            barriers2.Add(new Rectangle(637, 315, 60, 5));
 
             //Processing sprite sheet
             rows = 4;
@@ -189,6 +191,13 @@ namespace Pain_and_Suffering
                     UpdateRects();
                 }
 
+            foreach (Rectangle barrier2 in barriers2)
+                if (barrier2.Intersects(playerCollisionRect))
+                {
+                    playerLocation -= playerDirection * speed;
+                    UpdateRects();
+                }
+
             base.Update(gameTime);
         }
 
@@ -209,6 +218,9 @@ namespace Pain_and_Suffering
 
             foreach (Rectangle barrier in barriers)
                 _spriteBatch.Draw(rectangleTexture, barrier, Color.Black);
+
+            foreach (Rectangle barrier2 in barriers2)
+                _spriteBatch.Draw(rectangleTexture, barrier2, Color.White);
 
             _spriteBatch.End();
 
