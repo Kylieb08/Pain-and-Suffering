@@ -20,7 +20,7 @@ namespace Pain_and_Suffering
         private GraphicsDeviceManager _graphics;
         private SpriteBatch _spriteBatch;
 
-        Texture2D characterSpriteSheet, rectangleTexture, dungeonTexture, tunnelTexture;
+        Texture2D characterSpriteSheet, rectangleTexture, dungeonTexture, tunnelTexture, dungeon2Texture;
         List<Rectangle> barriers, barriers2;
 
         KeyboardState keyboardState;
@@ -158,6 +158,7 @@ namespace Pain_and_Suffering
             rectangleTexture = Content.Load<Texture2D>("rectangle");
             dungeonTexture = Content.Load<Texture2D>("dungeon 1");
             tunnelTexture = Content.Load<Texture2D>("dungeon tunnel");
+            dungeon2Texture = Content.Load<Texture2D>("dungeon 2");
         }
 
         protected override void Update(GameTime gameTime)
@@ -291,6 +292,10 @@ namespace Pain_and_Suffering
                 }
 
                 base.Update(gameTime);
+
+
+                if (secondButtonPressed)
+                    screen = Screen.Dungeon3;
             }
 
 
@@ -325,9 +330,17 @@ namespace Pain_and_Suffering
                 foreach (Rectangle barrier in barriers)
                     _spriteBatch.Draw(rectangleTexture, barrier, Color.Black);
 
+                
+            }
+            
+            else if (screen == Screen.Dungeon2)
+            {
+                _spriteBatch.Draw(dungeon2Texture, window, Color.White);
+
                 foreach (Rectangle barrier2 in barriers2)
                     _spriteBatch.Draw(rectangleTexture, barrier2, Color.White);
             }
+
             
 
             _spriteBatch.End();
