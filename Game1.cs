@@ -284,12 +284,6 @@ namespace Pain_and_Suffering
                         UpdateRects();
                     }
 
-                if (lockedDoor.Intersects(playerCollisionRect))
-                {
-                    playerLocation -= playerDirection * speed;
-                    UpdateRects();
-                }
-
                 //Interactions with buttons etc.
                 if (secondButtonRect.Intersects(playerCollisionRect))
                 {
