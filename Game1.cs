@@ -17,7 +17,7 @@ namespace Pain_and_Suffering
 
         MouseState mouseState;
 
-        Rectangle window, playerCollisionRect, playerDrawRect;
+        Rectangle window, playerCollisionRect, playerDrawRect, leverRect, buttonRect;
 
         int rows, columns, //number of rows/columns in the spritesheet
             frame, //frame number (column) in the sequence to draw
@@ -118,6 +118,10 @@ namespace Pain_and_Suffering
             playerCollisionRect = new Rectangle(79, 41, 20, 48);
             playerDrawRect = new Rectangle(79, 41, 50, 65);
             speed = 1.5f;
+
+            //Things to interact with
+            leverRect = new Rectangle(769, 387, 13, 5);
+            buttonRect = new Rectangle(34, 337, 23, 18);
 
             UpdateRects();
 
