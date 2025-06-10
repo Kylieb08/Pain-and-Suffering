@@ -56,9 +56,10 @@ namespace Pain_and_Suffering
             barriers.Add(new Rectangle(548, 0, 65, 105));
             barriers.Add(new Rectangle(548, 0, 222, 35));
             barriers.Add(new Rectangle(770, 0, 30, 61));
-         //   barriers.Add(new Rectangle(525, 315, 160, 5)); // barrier in front of door that gets unlocked
-            barriers.Add(new Rectangle(701, 235, 20, 5));
-            barriers.Add(new Rectangle(753, 235, 47, 5));
+            //barriers.Add(new Rectangle(525, 315, 160, 5)); // barrier in front of door that gets unlocked
+           
+            barriers.Add(new Rectangle(701, 235, 100, 5));
+
             barriers.Add(new Rectangle(475, 92, 25, 14));
             barriers.Add(new Rectangle(673, 173, 87, 12));
             barriers.Add(new Rectangle(762, 130, 38, 97));
@@ -92,6 +93,10 @@ namespace Pain_and_Suffering
             barriers.Add(new Rectangle(585, 431, 166, 23));
             barriers.Add(new Rectangle(762, 410, 38, 23));
             barriers.Add(new Rectangle(762, 331, 38, 12));
+
+            //Barriers after the door is unlocked, will be on second screen but not third
+            barriers.Add(new Rectangle(525, 315, 77, 5));
+            barriers.Add(new Rectangle(637, 315, 60, 5));
 
             //Processing sprite sheet
             rows = 4;
