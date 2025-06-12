@@ -231,23 +231,21 @@ namespace Pain_and_Suffering
                     if (keyboardState.IsKeyDown(Keys.E))
                     {
                         leverFlipped = true;
-                    }
-                        
+                    }                        
                 }
 
                 if (buttonRect.Intersects(playerCollisionRect))
                 {
-                    if (keyboardState.IsKeyDown((Keys)Keys.E))
+                    if (keyboardState.IsKeyDown(Keys.E))
                     {
                         buttonPressed = true;
-                    }
-                        
+                    }                        
                 }
-
-                base.Update(gameTime);
 
                 if (buttonPressed == true && leverFlipped == true)
                     screen = Screen.Dungeon2;
+
+                base.Update(gameTime);
             }
 
             else if (screen == Screen.Dungeon2)
@@ -284,7 +282,7 @@ namespace Pain_and_Suffering
                         UpdateRects();
                     }
 
-                //Interactions with buttons etc.
+                //Interactions with second button
                 if (secondButtonRect.Intersects(playerCollisionRect))
                 {
                     if (keyboardState.IsKeyDown((Keys)Keys.E))
@@ -318,8 +316,13 @@ namespace Pain_and_Suffering
             {
                 _spriteBatch.Draw(dungeonTexture, window, Color.White);
 
-                //_spriteBatch.Draw(rectangleTexture, playerCollisionRect, Color.Black * 0.3f);
+                _spriteBatch.Draw(rectangleTexture, playerCollisionRect, Color.Black * 0.3f);
                 // ^ draws hitbox
+
+                //Draws lever hitbox
+                _spriteBatch.Draw(rectangleTexture, leverRect, Color.White);
+                //Draws button hitbox
+                _spriteBatch.Draw(rectangleTexture, buttonRect, Color.White);
 
                 _spriteBatch.Draw(characterSpriteSheet, playerDrawRect,
                     new Rectangle(frame * width, directionRow * height, width, height), Color.White);
@@ -329,6 +332,16 @@ namespace Pain_and_Suffering
 
                 foreach (Rectangle barrier in barriers)
                     _spriteBatch.Draw(rectangleTexture, barrier, Color.Black);
+
+                if (buttonPressed)
+                {
+                    _spriteBatch.Draw(rectangleTexture, buttonRect, Color.Green);
+                }
+
+                if (leverFlipped)
+                {
+                    _spriteBatch.Draw(rectangleTexture, leverRect, Color.Green);
+                }
 
                 
             }
