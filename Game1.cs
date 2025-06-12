@@ -335,6 +335,7 @@ namespace Pain_and_Suffering
                 else
                     _spriteBatch.Draw(rectangleTexture, buttonRect, Color.White);
 
+                //Draws player
                 _spriteBatch.Draw(characterSpriteSheet, playerDrawRect,
                     new Rectangle(frame * width, directionRow * height, width, height), Color.White);
 
@@ -344,14 +345,10 @@ namespace Pain_and_Suffering
                 foreach (Rectangle barrier in barriers)
                     _spriteBatch.Draw(rectangleTexture, barrier, Color.Black);
 
-                
-
-                if (leverFlipped)
-                {
-                    _spriteBatch.Draw(rectangleTexture, leverRect, Color.Green);
-                }
-
-                
+                //if (leverFlipped)
+                //{
+                //    _spriteBatch.Draw(rectangleTexture, leverRect, Color.Green);
+                //}
             }
             
             else if (screen == Screen.Dungeon2)
@@ -360,6 +357,14 @@ namespace Pain_and_Suffering
 
                 foreach (Rectangle barrier2 in barriers2)
                     _spriteBatch.Draw(rectangleTexture, barrier2, Color.White);
+
+                _spriteBatch.Draw(characterSpriteSheet, playerDrawRect,
+                    new Rectangle(frame * width, directionRow * height, width, height), Color.White);
+            }
+
+            else if (screen == Screen.Dungeon3)
+            {
+                _spriteBatch.Draw(dungeonTexture, window, Color.White);
             }
 
             _spriteBatch.End();
