@@ -20,7 +20,8 @@ namespace Pain_and_Suffering
         private GraphicsDeviceManager _graphics;
         private SpriteBatch _spriteBatch;
 
-        Texture2D characterSpriteSheet, rectangleTexture, tunnelTexture, dungeonTexture, dungeon2Texture, dungeon3Texture, exitTexture;
+        Texture2D characterSpriteSheet, rectangleTexture, leverFlippedTexture, 
+            tunnelTexture, dungeonTexture, dungeon2Texture, dungeon3Texture, exitTexture;
         List<Rectangle> barriers, barriers2;
 
         KeyboardState keyboardState;
@@ -169,6 +170,7 @@ namespace Pain_and_Suffering
             dungeon2Texture = Content.Load<Texture2D>("dungeon 2");
             dungeon3Texture = Content.Load<Texture2D>("dungeon 3");
             exitTexture = Content.Load<Texture2D>("dungeon exit");
+            leverFlippedTexture = Content.Load<Texture2D>("lever flipped");
         }
 
         protected override void Update(GameTime gameTime)
@@ -190,8 +192,7 @@ namespace Pain_and_Suffering
             {
                 if (mouseState.LeftButton == ButtonState.Pressed)
                 {
-                    //screen = Screen.Dungeon1;
-                    screen = Screen.Dungeon3; //for testing
+                    screen = Screen.Dungeon1;
                     buttonPressed = false;
                     leverFlipped = false;
                 }
@@ -376,7 +377,11 @@ namespace Pain_and_Suffering
 
             else if (screen == Screen.Dungeon1)
             {
-                _spriteBatch.Draw(dungeonTexture, window, Color.White);
+                if (!leverFlipped)
+                    _spriteBatch.Draw(dungeonTexture, window, Color.White);
+
+                else
+                    _spriteBatch.Draw(leverFlippedTexture, window, Color.White);
 
                 _spriteBatch.Draw(rectangleTexture, playerCollisionRect, Color.Black * 0.3f);
                 // ^ draws hitbox
