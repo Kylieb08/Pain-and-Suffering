@@ -20,7 +20,7 @@ namespace Pain_and_Suffering
         private GraphicsDeviceManager _graphics;
         private SpriteBatch _spriteBatch;
 
-        Texture2D characterSpriteSheet, rectangleTexture, dungeonTexture, tunnelTexture, dungeon2Texture;
+        Texture2D characterSpriteSheet, rectangleTexture, dungeonTexture, tunnelTexture, dungeon2Texture, dungeon3Texture;
         List<Rectangle> barriers, barriers2;
 
         KeyboardState keyboardState;
@@ -29,7 +29,7 @@ namespace Pain_and_Suffering
 
         Color buttonColor;
 
-        Rectangle window, playerCollisionRect, playerDrawRect, leverRect, buttonRect, secondButtonRect, lockedDoor;
+        Rectangle window, playerCollisionRect, playerDrawRect, leverRect, buttonRect, secondButtonRect, lockedDoor, exitDoor;
 
         int rows, columns, //number of rows/columns in the spritesheet
             frame, //frame number (column) in the sequence to draw
@@ -163,6 +163,7 @@ namespace Pain_and_Suffering
             dungeonTexture = Content.Load<Texture2D>("dungeon 1");
             tunnelTexture = Content.Load<Texture2D>("dungeon tunnel");
             dungeon2Texture = Content.Load<Texture2D>("dungeon 2");
+            dungeon3Texture = Content.Load<Texture2D>("dungeon 3");        
         }
 
         protected override void Update(GameTime gameTime)
@@ -302,6 +303,43 @@ namespace Pain_and_Suffering
                     screen = Screen.Dungeon3;
             }
 
+            else if (screen == Screen.Dungeon3)
+            {
+                if (time > frameSpeed && playerDirection != Vector2.Zero)
+                {
+                    time = 0f;
+                    frame = (frame + 1) % frames;  // ensures frame is a value 0-8
+                }
+
+                SetPlayerDirection();
+                playerLocation += playerDirection * speed;
+                UpdateRects();
+
+                //Collision detection with window
+                if (!window.Contains(playerCollisionRect))
+                {
+                    playerLocation -= playerDirection * speed;
+                    UpdateRects();
+                }
+
+                //Collision detection with barriers
+                foreach (Rectangle barrier in barriers)
+                    if (barrier.Intersects(playerCollisionRect))
+                    {
+                        playerLocation -= playerDirection * speed;
+                        UpdateRects();
+                    }
+
+                foreach (Rectangle barrier2 in barriers2)
+                    if (barrier2.Intersects(playerCollisionRect))
+                    {
+                        playerLocation -= playerDirection * speed;
+                        UpdateRects();
+                    }
+
+                base.Update(gameTime);
+            }
+
 
         }
 
@@ -340,10 +378,10 @@ namespace Pain_and_Suffering
                     new Rectangle(frame * width, directionRow * height, width, height), Color.White);
 
                 //drawing barriers - will be commented out in final version
-                _spriteBatch.Draw(rectangleTexture, lockedDoor, Color.Green);
+                //_spriteBatch.Draw(rectangleTexture, lockedDoor, Color.Green);
 
-                foreach (Rectangle barrier in barriers)
-                    _spriteBatch.Draw(rectangleTexture, barrier, Color.Black);
+                //foreach (Rectangle barrier in barriers)
+                //    _spriteBatch.Draw(rectangleTexture, barrier, Color.Black);
 
                 //if (leverFlipped)
                 //{
@@ -355,8 +393,8 @@ namespace Pain_and_Suffering
             {
                 _spriteBatch.Draw(dungeon2Texture, window, Color.White);
 
-                foreach (Rectangle barrier2 in barriers2)
-                    _spriteBatch.Draw(rectangleTexture, barrier2, Color.White);
+                //foreach (Rectangle barrier2 in barriers2)
+                //    _spriteBatch.Draw(rectangleTexture, barrier2, Color.White);
 
                 _spriteBatch.Draw(characterSpriteSheet, playerDrawRect,
                     new Rectangle(frame * width, directionRow * height, width, height), Color.White);
@@ -364,7 +402,10 @@ namespace Pain_and_Suffering
 
             else if (screen == Screen.Dungeon3)
             {
-                _spriteBatch.Draw(dungeonTexture, window, Color.White);
+                _spriteBatch.Draw(dungeon3Texture, window, Color.White);
+
+                _spriteBatch.Draw(characterSpriteSheet, playerDrawRect,
+                    new Rectangle(frame * width, directionRow * height, width, height), Color.White);
             }
 
             _spriteBatch.End();
