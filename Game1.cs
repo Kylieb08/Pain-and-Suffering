@@ -20,7 +20,7 @@ namespace Pain_and_Suffering
         private GraphicsDeviceManager _graphics;
         private SpriteBatch _spriteBatch;
 
-        Texture2D characterSpriteSheet, rectangleTexture, dungeonTexture, tunnelTexture, dungeon2Texture, dungeon3Texture;
+        Texture2D characterSpriteSheet, rectangleTexture, tunnelTexture, dungeonTexture, dungeon2Texture, dungeon3Texture;
         List<Rectangle> barriers, barriers2;
 
         KeyboardState keyboardState;
@@ -73,7 +73,6 @@ namespace Pain_and_Suffering
             barriers.Add(new Rectangle(548, 0, 65, 105));
             barriers.Add(new Rectangle(548, 0, 222, 35));
             barriers.Add(new Rectangle(770, 0, 30, 61));
-            // barrier in front of door that gets unlocked
             barriers.Add(new Rectangle(701, 235, 100, 5));
 
             barriers.Add(new Rectangle(475, 92, 25, 14));
@@ -114,7 +113,12 @@ namespace Pain_and_Suffering
             barriers2.Add(new Rectangle(525, 315, 77, 5));
             barriers2.Add(new Rectangle(637, 315, 60, 5));
 
+            /* barrier for locked door. Couldn't be on list because it's only
+            on the first screen and I didn't want to make a whole new list minus one barrier*/
             lockedDoor = new Rectangle(525, 315, 160, 5);
+
+            //Rectangle for exit door
+            exitDoor = new Rectangle(74, 40, 30, 46);
 
             buttonColor = Color.White;
 
@@ -160,8 +164,8 @@ namespace Pain_and_Suffering
             // TODO: use this.Content to load your game content here
             characterSpriteSheet = Content.Load<Texture2D>("skeleton_spritesheet");
             rectangleTexture = Content.Load<Texture2D>("rectangle");
-            dungeonTexture = Content.Load<Texture2D>("dungeon 1");
             tunnelTexture = Content.Load<Texture2D>("dungeon tunnel");
+            dungeonTexture = Content.Load<Texture2D>("dungeon 1");
             dungeon2Texture = Content.Load<Texture2D>("dungeon 2");
             dungeon3Texture = Content.Load<Texture2D>("dungeon 3");        
         }
@@ -338,7 +342,18 @@ namespace Pain_and_Suffering
                     }
 
                 base.Update(gameTime);
+
+                //Exit door contains player rect
+                if (exitDoor.Contains(playerCollisionRect))
+                {
+                    screen = Screen.End;
+                }
             }
+
+            //else if (screen == Screen.End)
+            //{
+
+            //}   
 
 
         }
