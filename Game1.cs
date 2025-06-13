@@ -6,7 +6,6 @@ using Microsoft.Xna.Framework.Input;
 
 namespace Pain_and_Suffering
 {
-
     enum Screen
     {
         Intro,
@@ -356,8 +355,6 @@ namespace Pain_and_Suffering
             //{
 
             //}   
-
-
         }
 
         protected override void Draw(GameTime gameTime)
