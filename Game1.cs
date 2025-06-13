@@ -28,8 +28,6 @@ namespace Pain_and_Suffering
 
         MouseState mouseState;
 
-        Color buttonColor;
-
         Rectangle window, playerCollisionRect, playerDrawRect, 
             leverRect, buttonRect, secondButtonRect, lockedDoor, exitDoor, hintRect;
 
@@ -121,8 +119,6 @@ namespace Pain_and_Suffering
 
             //Rectangle for exit door
             exitDoor = new Rectangle(74, 40, 30, 55);
-
-            buttonColor = Color.White;
 
             //Processing sprite sheet
             rows = 4;
@@ -255,7 +251,6 @@ namespace Pain_and_Suffering
                     if (keyboardState.IsKeyDown(Keys.E))
                     {
                         buttonPressed = true;
-                        buttonColor = Color.Green;
                     }                        
                 }
 
@@ -403,7 +398,7 @@ namespace Pain_and_Suffering
                 //    _spriteBatch.Draw(rectangleTexture, buttonRect, Color.White);
 
                 //Draws hint rect
-                _spriteBatch.Draw(rectangleTexture, hintRect, Color.White);
+                //_spriteBatch.Draw(rectangleTexture, hintRect, Color.White);
 
                 //Draws player
                 _spriteBatch.Draw(characterSpriteSheet, playerDrawRect,
