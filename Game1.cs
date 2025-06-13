@@ -30,7 +30,8 @@ namespace Pain_and_Suffering
 
         Color buttonColor;
 
-        Rectangle window, playerCollisionRect, playerDrawRect, leverRect, buttonRect, secondButtonRect, lockedDoor, exitDoor;
+        Rectangle window, playerCollisionRect, playerDrawRect, 
+            leverRect, buttonRect, secondButtonRect, lockedDoor, exitDoor, hintRect;
 
         int rows, columns, //number of rows/columns in the spritesheet
             frame, //frame number (column) in the sequence to draw
@@ -148,6 +149,7 @@ namespace Pain_and_Suffering
             leverRect = new Rectangle(769, 387, 13, 5);
             buttonRect = new Rectangle(34, 337, 23, 18);
             secondButtonRect = new Rectangle(300, 98, 22, 16);
+            hintRect = new Rectangle(329, 398, 52, 34);
 
             UpdateRects();
 
@@ -399,6 +401,9 @@ namespace Pain_and_Suffering
                 //}
                 //else
                 //    _spriteBatch.Draw(rectangleTexture, buttonRect, Color.White);
+
+                //Draws hint rect
+                _spriteBatch.Draw(rectangleTexture, hintRect, Color.White);
 
                 //Draws player
                 _spriteBatch.Draw(characterSpriteSheet, playerDrawRect,
