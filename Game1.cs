@@ -389,7 +389,7 @@ namespace Pain_and_Suffering
                 else if (buttonPressed && !leverFlipped)
                     _spriteBatch.Draw(buttonPressedTexture, window, Color.White);
 
-                _spriteBatch.Draw(rectangleTexture, playerCollisionRect, Color.Black * 0.3f);
+                //_spriteBatch.Draw(rectangleTexture, playerCollisionRect, Color.Black * 0.3f);
                 // ^ draws hitbox
 
                 ////Draws lever hitbox
@@ -428,7 +428,7 @@ namespace Pain_and_Suffering
                 //foreach (Rectangle barrier2 in barriers2)
                 //    _spriteBatch.Draw(rectangleTexture, barrier2, Color.White);
 
-                _spriteBatch.Draw(rectangleTexture, playerCollisionRect, Color.Black * 0.3f);
+                //_spriteBatch.Draw(rectangleTexture, playerCollisionRect, Color.Black * 0.3f);
                 // ^ draws hitbox
 
                 //Draws player
@@ -443,7 +443,7 @@ namespace Pain_and_Suffering
                 //Draws exit door rect
                 //_spriteBatch.Draw(rectangleTexture, exitDoor, Color.Black);
 
-                _spriteBatch.Draw(rectangleTexture, playerCollisionRect, Color.Black * 0.3f);
+                //_spriteBatch.Draw(rectangleTexture, playerCollisionRect, Color.Black * 0.3f);
                 // ^ draws hitbox
 
                 //Draws player
