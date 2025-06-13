@@ -20,7 +20,7 @@ namespace Pain_and_Suffering
         private GraphicsDeviceManager _graphics;
         private SpriteBatch _spriteBatch;
 
-        Texture2D characterSpriteSheet, rectangleTexture, tunnelTexture, dungeonTexture, dungeon2Texture, dungeon3Texture;
+        Texture2D characterSpriteSheet, rectangleTexture, tunnelTexture, dungeonTexture, dungeon2Texture, dungeon3Texture, exitTexture;
         List<Rectangle> barriers, barriers2;
 
         KeyboardState keyboardState;
@@ -118,7 +118,7 @@ namespace Pain_and_Suffering
             lockedDoor = new Rectangle(525, 315, 160, 5);
 
             //Rectangle for exit door
-            exitDoor = new Rectangle(74, 40, 30, 46);
+            exitDoor = new Rectangle(74, 40, 30, 55);
 
             buttonColor = Color.White;
 
@@ -167,7 +167,8 @@ namespace Pain_and_Suffering
             tunnelTexture = Content.Load<Texture2D>("dungeon tunnel");
             dungeonTexture = Content.Load<Texture2D>("dungeon 1");
             dungeon2Texture = Content.Load<Texture2D>("dungeon 2");
-            dungeon3Texture = Content.Load<Texture2D>("dungeon 3");        
+            dungeon3Texture = Content.Load<Texture2D>("dungeon 3");
+            exitTexture = Content.Load<Texture2D>("dungeon exit");
         }
 
         protected override void Update(GameTime gameTime)
@@ -189,7 +190,8 @@ namespace Pain_and_Suffering
             {
                 if (mouseState.LeftButton == ButtonState.Pressed)
                 {
-                    screen = Screen.Dungeon1;
+                    //screen = Screen.Dungeon1;
+                    screen = Screen.Dungeon3; //for testing
                     buttonPressed = false;
                     leverFlipped = false;
                 }
@@ -341,13 +343,14 @@ namespace Pain_and_Suffering
                         UpdateRects();
                     }
 
-                base.Update(gameTime);
-
                 //Exit door contains player rect
                 if (exitDoor.Contains(playerCollisionRect))
                 {
                     screen = Screen.End;
                 }
+
+                base.Update(gameTime);
+                
             }
 
             //else if (screen == Screen.End)
@@ -411,6 +414,10 @@ namespace Pain_and_Suffering
                 //foreach (Rectangle barrier2 in barriers2)
                 //    _spriteBatch.Draw(rectangleTexture, barrier2, Color.White);
 
+                _spriteBatch.Draw(rectangleTexture, playerCollisionRect, Color.Black * 0.3f);
+                // ^ draws hitbox
+
+                //Draws player
                 _spriteBatch.Draw(characterSpriteSheet, playerDrawRect,
                     new Rectangle(frame * width, directionRow * height, width, height), Color.White);
             }
@@ -419,8 +426,20 @@ namespace Pain_and_Suffering
             {
                 _spriteBatch.Draw(dungeon3Texture, window, Color.White);
 
+                //Draws exit door rect
+                _spriteBatch.Draw(rectangleTexture, exitDoor, Color.Black);
+
+                _spriteBatch.Draw(rectangleTexture, playerCollisionRect, Color.Black * 0.3f);
+                // ^ draws hitbox
+
+                //Draws player
                 _spriteBatch.Draw(characterSpriteSheet, playerDrawRect,
                     new Rectangle(frame * width, directionRow * height, width, height), Color.White);
+            }
+
+            else if (screen == Screen.End)
+            {
+                _spriteBatch.Draw(exitTexture, window, Color.White);
             }
 
             _spriteBatch.End();
