@@ -20,7 +20,7 @@ namespace Pain_and_Suffering
         private GraphicsDeviceManager _graphics;
         private SpriteBatch _spriteBatch;
 
-        Texture2D characterSpriteSheet, rectangleTexture, leverFlippedTexture, 
+        Texture2D characterSpriteSheet, rectangleTexture, leverFlippedTexture, buttonPressedTexture, 
             tunnelTexture, dungeonTexture, dungeon2Texture, dungeon3Texture, exitTexture;
         List<Rectangle> barriers, barriers2;
 
@@ -171,6 +171,7 @@ namespace Pain_and_Suffering
             dungeon3Texture = Content.Load<Texture2D>("dungeon 3");
             exitTexture = Content.Load<Texture2D>("dungeon exit");
             leverFlippedTexture = Content.Load<Texture2D>("lever flipped");
+            buttonPressedTexture = Content.Load<Texture2D>("button pressed 1");
         }
 
         protected override void Update(GameTime gameTime)
@@ -377,24 +378,27 @@ namespace Pain_and_Suffering
 
             else if (screen == Screen.Dungeon1)
             {
-                if (!leverFlipped)
+                if (!leverFlipped && !buttonPressed)
                     _spriteBatch.Draw(dungeonTexture, window, Color.White);
 
-                else
+                else if (leverFlipped && !buttonPressed)
                     _spriteBatch.Draw(leverFlippedTexture, window, Color.White);
+
+                else if (buttonPressed && !leverFlipped)
+                    _spriteBatch.Draw(buttonPressedTexture, window, Color.White);
 
                 _spriteBatch.Draw(rectangleTexture, playerCollisionRect, Color.Black * 0.3f);
                 // ^ draws hitbox
 
-                //Draws lever hitbox
-                _spriteBatch.Draw(rectangleTexture, leverRect, Color.White);
-                //Draws button hitbox
-                if (buttonPressed)
-                {
-                    _spriteBatch.Draw(rectangleTexture, buttonRect, Color.Green);
-                }
-                else
-                    _spriteBatch.Draw(rectangleTexture, buttonRect, Color.White);
+                ////Draws lever hitbox
+                //_spriteBatch.Draw(rectangleTexture, leverRect, Color.White);
+                ////Draws button hitbox
+                //if (buttonPressed)
+                //{
+                //    _spriteBatch.Draw(rectangleTexture, buttonRect, Color.Green);
+                //}
+                //else
+                //    _spriteBatch.Draw(rectangleTexture, buttonRect, Color.White);
 
                 //Draws player
                 _spriteBatch.Draw(characterSpriteSheet, playerDrawRect,
@@ -432,7 +436,7 @@ namespace Pain_and_Suffering
                 _spriteBatch.Draw(dungeon3Texture, window, Color.White);
 
                 //Draws exit door rect
-                _spriteBatch.Draw(rectangleTexture, exitDoor, Color.Black);
+                //_spriteBatch.Draw(rectangleTexture, exitDoor, Color.Black);
 
                 _spriteBatch.Draw(rectangleTexture, playerCollisionRect, Color.Black * 0.3f);
                 // ^ draws hitbox
