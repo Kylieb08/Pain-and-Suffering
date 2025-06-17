@@ -145,7 +145,7 @@ namespace Pain_and_Suffering
             buttonRect = new Rectangle(34, 337, 23, 18);
             secondButtonRect = new Rectangle(300, 98, 22, 16);
             hintRect = new Rectangle(329, 398, 52, 34);
-            hintShowingRect = new Rectangle(200, 350, 100, 100);
+            hintShowingRect = new Rectangle(200, 50, 400, 400);
 
             UpdateRects();
 
