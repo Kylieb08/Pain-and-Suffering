@@ -255,11 +255,12 @@ namespace Pain_and_Suffering
                     }                        
                 }
 
-                if (hintRect.Intersects(playerCollisionRect))
+                if (hintRect.Intersects(playerCollisionRect) && keyboardState.IsKeyDown(Keys.E))
                 {
-                    if (keyboardState.IsKeyDown(Keys.E))
                         hintShowing = true;
                 }
+                else
+                    hintShowing = false;
 
                 if (buttonPressed == true && leverFlipped == true)
                     screen = Screen.Dungeon2;
