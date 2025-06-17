@@ -20,14 +20,14 @@ namespace Pain_and_Suffering
         private SpriteBatch _spriteBatch;
 
         Texture2D characterSpriteSheet, rectangleTexture, leverFlippedTexture, buttonPressedTexture, 
-            tunnelTexture, dungeonTexture, dungeon2Texture, dungeon3Texture, exitTexture;
+            tunnelTexture, dungeonTexture, dungeon2Texture, dungeon3Texture, exitTexture, hintTexture;
         List<Rectangle> barriers, barriers2;
 
         KeyboardState keyboardState;
 
         MouseState mouseState;
 
-        Rectangle window, playerCollisionRect, playerDrawRect, 
+        Rectangle window, playerCollisionRect, playerDrawRect, hintShowingRect,
             leverRect, buttonRect, secondButtonRect, lockedDoor, exitDoor, hintRect;
 
         int rows, columns, //number of rows/columns in the spritesheet
@@ -43,7 +43,7 @@ namespace Pain_and_Suffering
 
         Screen screen;
 
-        bool leverFlipped, buttonPressed, secondButtonPressed;
+        bool leverFlipped, buttonPressed, secondButtonPressed, hintShowing;
 
 
         public Game1()
@@ -145,6 +145,7 @@ namespace Pain_and_Suffering
             buttonRect = new Rectangle(34, 337, 23, 18);
             secondButtonRect = new Rectangle(300, 98, 22, 16);
             hintRect = new Rectangle(329, 398, 52, 34);
+            hintShowingRect = new Rectangle(200, 350, 100, 100);
 
             UpdateRects();
 
@@ -169,6 +170,7 @@ namespace Pain_and_Suffering
             exitTexture = Content.Load<Texture2D>("dungeon exit");
             leverFlippedTexture = Content.Load<Texture2D>("lever flipped");
             buttonPressedTexture = Content.Load<Texture2D>("button pressed 1");
+            hintTexture = Content.Load<Texture2D>("hint no bg");
         }
 
         protected override void Update(GameTime gameTime)
@@ -251,6 +253,12 @@ namespace Pain_and_Suffering
                     {
                         buttonPressed = true;
                     }                        
+                }
+
+                if (hintRect.Intersects(playerCollisionRect))
+                {
+                    if (keyboardState.IsKeyDown(Keys.E))
+                        hintShowing = true;
                 }
 
                 if (buttonPressed == true && leverFlipped == true)
@@ -411,6 +419,9 @@ namespace Pain_and_Suffering
                 //{
                 //    _spriteBatch.Draw(rectangleTexture, leverRect, Color.Green);
                 //}
+
+                if (hintShowing)
+                    _spriteBatch.Draw(hintTexture, hintShowingRect, Color.White);
             }
             
             else if (screen == Screen.Dungeon2)
