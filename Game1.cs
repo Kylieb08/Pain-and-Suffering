@@ -20,14 +20,14 @@ namespace Pain_and_Suffering
         private SpriteBatch _spriteBatch;
 
         Texture2D characterSpriteSheet, rectangleTexture, leverFlippedTexture, buttonPressedTexture, 
-            tunnelTexture, dungeonTexture, dungeon2Texture, dungeon3Texture, exitTexture, hintTexture;
+            tunnelTexture, dungeonTexture, dungeon2Texture, dungeon3Texture, exitTexture, hintTexture, ETexture;
         List<Rectangle> barriers, barriers2;
 
         KeyboardState keyboardState;
 
         MouseState mouseState;
 
-        Rectangle window, playerCollisionRect, playerDrawRect, hintShowingRect,
+        Rectangle window, playerCollisionRect, playerDrawRect, hintShowingRect, E,
             leverRect, buttonRect, secondButtonRect, lockedDoor, exitDoor, hintRect;
 
         int rows, columns, //number of rows/columns in the spritesheet
@@ -147,6 +147,8 @@ namespace Pain_and_Suffering
             hintRect = new Rectangle(329, 398, 52, 34);
             hintShowingRect = new Rectangle(200, 50, 400, 400);
 
+            E = new Rectangle(340, 370, 20, 25);
+
             UpdateRects();
 
             base.Initialize();
@@ -171,6 +173,7 @@ namespace Pain_and_Suffering
             leverFlippedTexture = Content.Load<Texture2D>("lever flipped");
             buttonPressedTexture = Content.Load<Texture2D>("button pressed 1");
             hintTexture = Content.Load<Texture2D>("hint no bg");
+            ETexture = Content.Load<Texture2D>("E");
         }
 
         protected override void Update(GameTime gameTime)
@@ -405,6 +408,9 @@ namespace Pain_and_Suffering
 
                 //Draws hint rect
                 //_spriteBatch.Draw(rectangleTexture, hintRect, Color.White);
+
+                //E
+                _spriteBatch.Draw(ETexture, E, Color.White);
 
                 //Draws player
                 _spriteBatch.Draw(characterSpriteSheet, playerDrawRect,
