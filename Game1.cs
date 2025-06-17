@@ -39,7 +39,7 @@ namespace Pain_and_Suffering
 
         float speed, time, frameSpeed;
 
-        Vector2 playerLocation, playerDirection;
+        Vector2 playerLocation, playerDirection, ESpeed;
 
         Screen screen;
 
@@ -147,7 +147,9 @@ namespace Pain_and_Suffering
             hintRect = new Rectangle(329, 398, 52, 34);
             hintShowingRect = new Rectangle(200, 50, 400, 400);
 
+            //E
             E = new Rectangle(340, 370, 20, 25);
+            ESpeed = new Vector2(0, 1);
 
             UpdateRects();
 
@@ -267,6 +269,14 @@ namespace Pain_and_Suffering
 
                 if (buttonPressed == true && leverFlipped == true)
                     screen = Screen.Dungeon2;
+
+                E.Y += (int)ESpeed.Y;
+
+                if (E.Y >= 374)
+                    ESpeed *= -1;
+
+                if (E.Y <= 366)
+                    ESpeed *= -1;
 
                 base.Update(gameTime);
             }
