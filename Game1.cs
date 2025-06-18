@@ -212,7 +212,7 @@ namespace Pain_and_Suffering
 
             else if (screen == Screen.Story)
             {
-                if (mouseState.LeftButton == ButtonState.Pressed)
+                if (keyboardState.IsKeyDown((Keys)Keys.C))
                 {
                     screen = Screen.Controls;
                 }
@@ -426,11 +426,6 @@ namespace Pain_and_Suffering
                 base.Update(gameTime);
 
             }
-
-            //else if (screen == Screen.End)
-            //{
-
-            //}   
         }
 
         protected override void Draw(GameTime gameTime)
@@ -467,40 +462,12 @@ namespace Pain_and_Suffering
                 else if (buttonPressed && !leverFlipped)
                     _spriteBatch.Draw(buttonPressedTexture, window, Color.White);
 
-                //_spriteBatch.Draw(rectangleTexture, playerCollisionRect, Color.Black * 0.3f);
-                // ^ draws hitbox
-
-                ////Draws lever hitbox
-                //_spriteBatch.Draw(rectangleTexture, leverRect, Color.White);
-                ////Draws button hitbox
-                //if (buttonPressed)
-                //{
-                //    _spriteBatch.Draw(rectangleTexture, buttonRect, Color.Green);
-                //}
-                //else
-                //    _spriteBatch.Draw(rectangleTexture, buttonRect, Color.White);
-
-                //Draws hint rect
-                //_spriteBatch.Draw(rectangleTexture, hintRect, Color.White);
-
                 //Draws E
                 _spriteBatch.Draw(ETexture, E, Color.White);
 
                 //Draws player
                 _spriteBatch.Draw(characterSpriteSheet, playerDrawRect,
                     new Rectangle(frame * width, directionRow * height, width, height), Color.White);
-
-                //drawing barriers - will be commented out in final version
-                //_spriteBatch.Draw(rectangleTexture, lockedDoor, Color.Green);
-
-                //foreach (Rectangle barrier in barriers)
-                //    _spriteBatch.Draw(rectangleTexture, barrier, Color.Black);
-
-                //if (leverFlipped)
-                //{
-                //    _spriteBatch.Draw(rectangleTexture, leverRect, Color.Green);
-                //}
-
 
                 //Draws hint
                 if (hintShowing)
@@ -510,12 +477,6 @@ namespace Pain_and_Suffering
             else if (screen == Screen.Dungeon2)
             {
                 _spriteBatch.Draw(dungeon2Texture, window, Color.White);
-
-                //foreach (Rectangle barrier2 in barriers2)
-                //    _spriteBatch.Draw(rectangleTexture, barrier2, Color.White);
-
-                //_spriteBatch.Draw(rectangleTexture, playerCollisionRect, Color.Black * 0.3f);
-                // ^ draws hitbox
 
                 //Draws E
                 _spriteBatch.Draw(ETexture, E, Color.White);
@@ -532,12 +493,6 @@ namespace Pain_and_Suffering
             else if (screen == Screen.Dungeon3)
             {
                 _spriteBatch.Draw(dungeon3Texture, window, Color.White);
-
-                //Draws exit door rect
-                //_spriteBatch.Draw(rectangleTexture, exitDoor, Color.Black);
-
-                //_spriteBatch.Draw(rectangleTexture, playerCollisionRect, Color.Black * 0.3f);
-                // ^ draws hitbox
 
                 //Draws player
                 _spriteBatch.Draw(characterSpriteSheet, playerDrawRect,
