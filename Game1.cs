@@ -9,6 +9,8 @@ namespace Pain_and_Suffering
     enum Screen
     {
         Intro,
+        Story,
+        Controls,
         Dungeon1,
         Dungeon2,
         Dungeon3,
@@ -20,7 +22,8 @@ namespace Pain_and_Suffering
         private SpriteBatch _spriteBatch;
 
         Texture2D characterSpriteSheet, rectangleTexture, leverFlippedTexture, buttonPressedTexture, 
-            tunnelTexture, dungeonTexture, dungeon2Texture, dungeon3Texture, exitTexture, hintTexture, ETexture;
+            tunnelTexture, dungeonTexture, dungeon2Texture, dungeon3Texture, exitTexture, hintTexture, ETexture,
+            storyTexture, controlsTexture;
         List<Rectangle> barriers, barriers2;
 
         KeyboardState keyboardState;
@@ -167,7 +170,6 @@ namespace Pain_and_Suffering
             // TODO: use this.Content to load your game content here
             characterSpriteSheet = Content.Load<Texture2D>("skeleton_spritesheet");
             rectangleTexture = Content.Load<Texture2D>("rectangle");
-            tunnelTexture = Content.Load<Texture2D>("dungeon tunnel");
             dungeonTexture = Content.Load<Texture2D>("dungeon 1");
             dungeon2Texture = Content.Load<Texture2D>("dungeon 2");
             dungeon3Texture = Content.Load<Texture2D>("dungeon 3");
@@ -176,6 +178,11 @@ namespace Pain_and_Suffering
             buttonPressedTexture = Content.Load<Texture2D>("button pressed 1");
             hintTexture = Content.Load<Texture2D>("hint no bg");
             ETexture = Content.Load<Texture2D>("E");
+
+            //intro screens
+            tunnelTexture = Content.Load<Texture2D>("dungeon intro");
+            storyTexture = Content.Load<Texture2D>("dungeon story");
+            controlsTexture = Content.Load<Texture2D>("dungeon controls");
         }
 
         protected override void Update(GameTime gameTime)
@@ -197,9 +204,25 @@ namespace Pain_and_Suffering
             {
                 if (mouseState.LeftButton == ButtonState.Pressed)
                 {
-                    screen = Screen.Dungeon1;
+                    screen = Screen.Story;
                     buttonPressed = false;
                     leverFlipped = false;
+                }
+            }
+
+            else if (screen == Screen.Story)
+            {
+                if (mouseState.LeftButton == ButtonState.Pressed)
+                {
+                    screen = Screen.Controls;
+                }
+            }
+
+            else if (screen == Screen.Controls)
+            {
+                if (keyboardState.IsKeyDown((Keys)Keys.Space))
+                {
+                    screen = Screen.Dungeon1;
                 }
             }
 
@@ -249,7 +272,7 @@ namespace Pain_and_Suffering
                     if (keyboardState.IsKeyDown(Keys.E))
                     {
                         leverFlipped = true;
-                    }                        
+                    }
                 }
 
                 if (buttonRect.Intersects(playerCollisionRect))
@@ -257,12 +280,12 @@ namespace Pain_and_Suffering
                     if (keyboardState.IsKeyDown(Keys.E))
                     {
                         buttonPressed = true;
-                    }                        
+                    }
                 }
 
                 if (hintRect.Intersects(playerCollisionRect) && keyboardState.IsKeyDown(Keys.E))
                 {
-                        hintShowing = true;
+                    hintShowing = true;
                 }
                 else
                     hintShowing = false;
@@ -401,7 +424,7 @@ namespace Pain_and_Suffering
                 }
 
                 base.Update(gameTime);
-                
+
             }
 
             //else if (screen == Screen.End)
@@ -421,6 +444,16 @@ namespace Pain_and_Suffering
             if (screen == Screen.Intro)
             {
                 _spriteBatch.Draw(tunnelTexture, window, Color.White);
+            }
+
+            else if (screen == Screen.Story)
+            {
+                _spriteBatch.Draw(storyTexture, window, Color.White);
+            }
+
+            else if (screen == Screen.Controls)
+            {
+                _spriteBatch.Draw(controlsTexture, window, Color.White);
             }
 
             else if (screen == Screen.Dungeon1)
