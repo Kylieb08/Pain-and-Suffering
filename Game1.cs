@@ -117,7 +117,7 @@ namespace Pain_and_Suffering
             lockedDoor = new Rectangle(525, 315, 160, 5);
 
             //Rectangle for exit door
-            exitDoor = new Rectangle(74, 40, 30, 55);
+            exitDoor = new Rectangle(74, 20, 30, 75);
 
             //Processing sprite sheet
             rows = 4;
@@ -270,6 +270,7 @@ namespace Pain_and_Suffering
                 if (buttonPressed == true && leverFlipped == true)
                     screen = Screen.Dungeon2;
 
+                //E moves
                 seconds += (float)gameTime.ElapsedGameTime.TotalSeconds;
                 if (seconds >= 1)
                 {
@@ -323,11 +324,33 @@ namespace Pain_and_Suffering
                         UpdateRects();
                     }
 
-                //Interactions with second button
+                //Interactions with second button, hint
                 if (secondButtonRect.Intersects(playerCollisionRect))
                 {
                     if (keyboardState.IsKeyDown((Keys)Keys.E))
                         secondButtonPressed = true;
+                }
+
+                if (hintRect.Intersects(playerCollisionRect) && keyboardState.IsKeyDown(Keys.E))
+                {
+                    hintShowing = true;
+                }
+                else
+                    hintShowing = false;
+
+                //E moves
+                seconds += (float)gameTime.ElapsedGameTime.TotalSeconds;
+                if (seconds >= 1)
+                {
+                    E.Y += (int)ESpeed.Y;
+
+                    if (E.Y >= 372)
+                        ESpeed *= -1;
+
+                    if (E.Y <= 371)
+                        ESpeed *= -1;
+
+                    seconds = 0;
                 }
 
                 base.Update(gameTime);
@@ -427,7 +450,7 @@ namespace Pain_and_Suffering
                 //Draws hint rect
                 //_spriteBatch.Draw(rectangleTexture, hintRect, Color.White);
 
-                //E
+                //Draws E
                 _spriteBatch.Draw(ETexture, E, Color.White);
 
                 //Draws player
@@ -445,6 +468,8 @@ namespace Pain_and_Suffering
                 //    _spriteBatch.Draw(rectangleTexture, leverRect, Color.Green);
                 //}
 
+
+                //Draws hint
                 if (hintShowing)
                     _spriteBatch.Draw(hintTexture, hintShowingRect, Color.White);
             }
@@ -459,9 +484,16 @@ namespace Pain_and_Suffering
                 //_spriteBatch.Draw(rectangleTexture, playerCollisionRect, Color.Black * 0.3f);
                 // ^ draws hitbox
 
+                //Draws E
+                _spriteBatch.Draw(ETexture, E, Color.White);
+
                 //Draws player
                 _spriteBatch.Draw(characterSpriteSheet, playerDrawRect,
                     new Rectangle(frame * width, directionRow * height, width, height), Color.White);
+
+                //Draws hint
+                if (hintShowing)
+                    _spriteBatch.Draw(hintTexture, hintShowingRect, Color.White);
             }
 
             else if (screen == Screen.Dungeon3)
