@@ -37,7 +37,7 @@ namespace Pain_and_Suffering
             leftRow, rightRow, upRow, downRow, //row number of each directional set of frames
             width, height;
 
-        float speed, time, frameSpeed;
+        float speed, time, frameSpeed, seconds;
 
         Vector2 playerLocation, playerDirection, ESpeed;
 
@@ -270,13 +270,21 @@ namespace Pain_and_Suffering
                 if (buttonPressed == true && leverFlipped == true)
                     screen = Screen.Dungeon2;
 
-                E.Y += (int)ESpeed.Y;
+                seconds += (float)gameTime.ElapsedGameTime.TotalSeconds;
+                if (seconds >= 1)
+                {
+                    E.Y += (int)ESpeed.Y;
 
-                if (E.Y >= 374)
-                    ESpeed *= -1;
+                    if (E.Y >= 372)
+                        ESpeed *= -1;
 
-                if (E.Y <= 366)
-                    ESpeed *= -1;
+                    if (E.Y <= 371)
+                        ESpeed *= -1;
+
+                    seconds = 0;
+                }
+
+
 
                 base.Update(gameTime);
             }
